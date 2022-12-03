@@ -35,4 +35,20 @@ public class PostStore {
         post.setCreated(LocalDate.now());
         posts.put(post.getId(), post);
     }
+
+    public Object findById(int id) {
+        Object object = new Post();
+        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
+            Integer key = entry.getKey();
+            if (key == id) {
+                object = entry.getValue();
+            }
+        }
+        return object;
+    }
+
+    public void update(Post post) {
+        post.setCreated(LocalDate.now());
+        posts.put(post.getId(), post);
+    }
 }
