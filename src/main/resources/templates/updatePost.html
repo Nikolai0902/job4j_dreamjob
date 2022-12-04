@@ -49,6 +49,7 @@
                         <label for="description">Описание</label>
                         <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
                     </div>
+                    <input type="hidden" name="created" th:field="*{created}"/>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
