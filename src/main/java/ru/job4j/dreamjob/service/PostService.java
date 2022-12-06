@@ -10,6 +10,7 @@ import java.util.Collection;
 @ThreadSafe
 @Service
 public class PostService {
+
     private final PostStore store;
 
     public PostService(PostStore store) {
