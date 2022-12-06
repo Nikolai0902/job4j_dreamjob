@@ -6,7 +6,6 @@ import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
 import java.util.Collection;
-import java.util.List;
 
 @ThreadSafe
 @Service
