@@ -18,9 +18,9 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "Low level", LocalDate.now().plusDays(1)));
-        posts.put(2, new Post(2, "Middle Java Job", "Average level", LocalDate.now().plusDays(2)));
-        posts.put(3, new Post(3, "Senior Java Job", "Difficult level", LocalDate.now().plusDays(3)));
+        posts.put(1, new Post(1, "Junior Java Job", "Low level", LocalDate.now().plusDays(1), null));
+        posts.put(2, new Post(2, "Middle Java Job", "Average level", LocalDate.now().plusDays(2), null));
+        posts.put(3, new Post(3, "Senior Java Job", "Difficult level", LocalDate.now().plusDays(3), null));
     }
 
     public Collection<Post> findAll() {

@@ -43,6 +43,7 @@
                 <th scope="col">Имя кандидата</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Дата собеседования</th>
+                <th scope="col">Город</th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +57,7 @@
                 </td>
                 <td th:text="${candidate.description}" />
                 <td th:text="${candidate.created}" />
+                <td th:text="${candidate?.city?.name}" />
             </tr>
             </tbody>
         </table>
