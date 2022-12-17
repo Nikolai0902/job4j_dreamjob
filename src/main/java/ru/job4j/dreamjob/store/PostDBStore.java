@@ -34,9 +34,7 @@ public class PostDBStore {
              PreparedStatement ps = cn.prepareStatement(SELECT)) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    posts.add(new Post(it.getInt("id"), it.getString("name"),
-                            it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
-                            new City(it.getInt("city_id"), "")));
+                    posts.add(getPost(it));
                 }
             }
         } catch (Exception e) {
@@ -95,7 +93,7 @@ public class PostDBStore {
 
     private Post getPost(ResultSet it) throws SQLException {
         return new Post(it.getInt("id"), it.getString("name"),
-                it.getString("description"), it.getObject(4, LocalDate.class),
+                it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
                 new City(it.getInt("city_id"), ""));
     }
 }
