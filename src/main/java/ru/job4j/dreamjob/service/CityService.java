@@ -8,6 +8,7 @@ import java.util.*;
 
 @Service
 public class CityService {
+
     private Map<Integer, City> cities = new HashMap<Integer, City>();
 
     public CityService() {
