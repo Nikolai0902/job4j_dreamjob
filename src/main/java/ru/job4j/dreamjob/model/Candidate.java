@@ -15,12 +15,13 @@ public class Candidate {
     public Candidate() {
     }
 
-    public Candidate(int id, String name, String desc, LocalDate created, City city) {
+    public Candidate(int id, String name, String desc, LocalDate created, City city, byte[] photo) {
         this.id = id;
         this.name = name;
         this.description = desc;
         this.created = created;
         this.city = city;
+        this.photo = photo;
     }
 
     public int getId() {

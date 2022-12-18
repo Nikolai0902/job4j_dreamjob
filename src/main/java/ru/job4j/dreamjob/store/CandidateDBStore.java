@@ -16,8 +16,8 @@ import java.util.List;
 public class CandidateDBStore {
 
     private static final String SELECT = "SELECT * FROM candidate";
-    private static final String INSERT = "INSERT INTO candidate(name, description, created, city_id) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE candidate set name = ?, description = ?, city_id = ? where id = ?";
+    private static final String INSERT = "INSERT INTO candidate(name, description, created, city_id, photo) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE = "UPDATE candidate SET name = ?, description = ?, city_id = ?, photo = ? WHERE id = ?";
     private static final String SELECT_W_ID = "SELECT * FROM candidate WHERE id = ?";
 
     private static final Logger LOG = LoggerFactory.getLogger(CandidateDBStore.class.getName());
@@ -51,6 +51,7 @@ public class CandidateDBStore {
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated().atStartOfDay()));
             ps.setInt(4, candidate.getCity().getId());
+            ps.setBytes(5, candidate.getPhoto());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -69,8 +70,9 @@ public class CandidateDBStore {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setInt(3, candidate.getCity().getId());
-            ps.setInt(4, candidate.getId());
-            ps.executeUpdate();
+            ps.setBytes(4, candidate.getPhoto());
+            ps.setInt(5, candidate.getId());
+            ps.execute();
         } catch (Exception e) {
             LOG.error("Exception connection", e);
         }
@@ -92,8 +94,13 @@ public class CandidateDBStore {
     }
 
     private Candidate getCandidate(ResultSet it) throws SQLException {
-        return new Candidate(it.getInt("id"), it.getString("name"),
-                it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
-                new City(it.getInt("city_id"), ""));
+        return new Candidate(
+                it.getInt("id"),
+                it.getString("name"),
+                it.getString("description"),
+                it.getTimestamp("created").toLocalDateTime().toLocalDate(),
+                new City(it.getInt("city_id"), ""),
+                it.getBytes("photo")
+        );
     }
 }

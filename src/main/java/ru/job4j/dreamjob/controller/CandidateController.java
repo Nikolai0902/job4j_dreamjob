@@ -41,8 +41,9 @@ public class CandidateController {
     }
 
     @PostMapping("/createCandidate")
-    public String createPost(@ModelAttribute Candidate candidate, @RequestParam("city.id") int id,
-                             @RequestParam("file") MultipartFile file) throws IOException {
+    public String createCandidate(@ModelAttribute Candidate candidate,
+                                  @RequestParam("city.id") int id,
+                                  @RequestParam("file") MultipartFile file) throws IOException {
         candidate.setCity(cityService.findById(id));
         candidate.setPhoto(file.getBytes());
         candidateService.add(candidate);
@@ -57,7 +58,10 @@ public class CandidateController {
     }
 
     @PostMapping("/updateCandidate")
-    public String updatePost(@ModelAttribute Candidate candidate, @RequestParam("city.id") int id) {
+    public String updateCandidate(@ModelAttribute Candidate candidate,
+                                  @RequestParam("city.id") int id,
+                                  @RequestParam("file") MultipartFile file) throws IOException {
+        candidate.setPhoto(file.getBytes());
         candidate.setCity(cityService.findById(id));
         candidateService.update(candidate);
         return "redirect:/candidates";
@@ -65,7 +69,7 @@ public class CandidateController {
 
     @GetMapping("/photoCandidate/{candidateId}")
     public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId) {
-        Candidate candidate = (Candidate) candidateService.findById(candidateId);
+        Candidate candidate = candidateService.findById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(candidate.getPhoto().length)
