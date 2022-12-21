@@ -10,11 +10,12 @@ import ru.job4j.dreamjob.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Optional;
 
 @Repository
 public class UserDBStore {
 
-    private static final String INSERT = "INSERT INTO post(name, email, password) VALUES (?, ?, ?)";
+    private static final String INSERT = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
 
     private static final Logger LOG = LoggerFactory.getLogger(UserDBStore.class.getName());
 
@@ -24,7 +25,8 @@ public class UserDBStore {
         this.pool = pool;
     }
 
-    public User add(User user) {
+    public Optional<User> add(User user) {
+        Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
@@ -36,9 +38,10 @@ public class UserDBStore {
                     user.setId(id.getInt(1));
                 }
             }
+            rsl = Optional.of(user);
         } catch (Exception e) {
             LOG.error("Exception connection", e);
         }
-        return user;
+        return rsl;
     }
 }
