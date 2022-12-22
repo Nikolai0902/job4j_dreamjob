@@ -9,7 +9,7 @@ public final class Session {
     public Session() {
     }
 
-    public static User getSession(HttpSession session) {
+    public static User getUser(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();

@@ -4,7 +4,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 import ru.job4j.dreamjob.config.Session;
-import ru.job4j.dreamjob.model.User;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +12,7 @@ public class IndexControl {
 
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
-        model.addAttribute("user", Session.getSession(session));
+        model.addAttribute("user", Session.getUser(session));
         return "index";
     }
 }

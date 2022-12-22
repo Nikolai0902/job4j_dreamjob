@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.job4j.dreamjob.config.Session;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
@@ -44,7 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/formAddUser")
-    public String formAddUser(Model model) {
+    public String formAddUser(Model model, HttpSession session) {
+        model.addAttribute("user", Session.getUser(session));
         return "addUser";
     }
 
