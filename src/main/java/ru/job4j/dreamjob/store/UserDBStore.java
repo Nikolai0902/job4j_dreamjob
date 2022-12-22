@@ -55,10 +55,9 @@ public class UserDBStore {
             ps.setString(2, password);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return Optional.of(newUser(it));
+                    rsl = Optional.of(newUser(it));
                 }
             }
-
         } catch (Exception e) {
             LOG.error("Exception connection", e);
         }
